@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Kakebo - {% block title %}{% endblock %}</title>
+    
+</head>
+<style>
+body {background-color: lightgray;}
+h1   {color: black;}
+p    {border: 2px solid black;}
+
+th {border: 2px solid black;
+    margin: 30px;}
+
+td {color: green;
+    }
+
+</style>
+<body>
+    <header>
+    <style>
+
+p    {color: blue;
+      font-family: verdana;
+      size: 200%;}
+</style>
+        
+        <p>Boot Z 6 - Kakebo</p>
+        
+      
+    </header>
+    <section>
+        <h1>{% block content %}{% endblock %}</h1>
+    </section>
+
+    <footer>
+        &copy; 2020 - 2021. Todos los derechos reservados
+    </footer>
+
+</body>
+
+</html>

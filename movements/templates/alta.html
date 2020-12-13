@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+{% block title %} <kakebo> {% endblock %} 
+{% block content %}
+
+<a href="{{ url_for("listaIngresos") }}">Volver a Ingresos</a>
+
+<form action="creaalta" method="get">
+    <div class="flied">
+        <label for="fecha>">Fecha:</label>
+        <input type="date" name="fecha" required>
+        
+    </div>
+    <div class="flied">
+        <label for="concepto">Concepto:</label>
+        <input type="text" name="concepto">
+    </div>
+    <div class="flied">
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" step="0.01">
+    </div>
+    <input type="submit" value="aceptar">
+</form>
+
+
+
+{% endblock %}

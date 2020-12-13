@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+{% block title %} <kakebo> {% endblock %} 
+{% block content %}
+
+
+
+<form action="/modifica/{{registro['id']}}" method="post">
+    <div class="flied">
+        <label for="fecha>">Fecha:</label>
+        <input type="date" name="fecha" required value="{{registro['fecha']}}">
+        
+    </div>
+    <div class="flied">
+        <label for="concepto">Concepto:</label>
+        <input type="text" name="concepto" value="{{registro['concepto']}}">
+    </div>
+    <div class="flied">
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" step="0.01" value="{{registro['cantidad']}}">
+    </div>
+    <input type="submit" value="aceptar">
+</form>
+
+
+
+{% endblock %}

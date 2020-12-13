@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% block title %} <kakebo> {% endblock %} 
+{% block content %}
+
+<form action="mi_alta.html" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.fecha.label }}
+        {{ form.fecha(size=64 )}}<br>
+        {% for errors in form.fecha.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.concepto.label }}
+        {{ form.concepto }}<br>
+        {% for error in form.concepto.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.cantidad.label }}
+        {{ form.cantidad }}<br>
+        {% for error in form.cantidad.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.enviar() }}
+    </div>
+</form>
+{% endblock %}
