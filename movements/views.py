@@ -4,7 +4,7 @@ import csv
 import sqlite3
 from movements import forms
 
-DBFILE = 'movements/data/DBFLASK.db'
+DBFILE = 'movements/data/base_de_datos.db'
 
 def consulta(query, params=()):
     conn = sqlite3.connect(DBFILE)
@@ -45,7 +45,7 @@ def consulta(query, params=()):
 
 @app.route('/')
 def listaIngresos():
-    miformulario=myform.alta()
+    
     ingresos = consulta('SELECT fecha, concepto, cantidad, id FROM movimientos;')
 
     total = 0
@@ -57,21 +57,21 @@ def listaIngresos():
 
 @app.route('/creaalta', methods=['GET', 'POST'])
 def nuevoIngreso():
+    formulario=forms.alta()
     if request.method == 'POST':
-        # iNSERT INTO movimientos (cantidad, concepto, fecha) VALUES (1500, "Paga extra", "2020-12-16" )
-
-        cantidad = request.form.get('cantidad')
+       
+        fecha=formulario.fecha.data
+        concepto= formulario.concepto.data
+        cantidad = formulario.cantidad.data
         try:
-            cantidad = float(cantidad)
+            cantidad = float('cantidad')
         except ValueError:
             msgError = 'Cantidad debe ser numérico'
-            return render_template("alta", errores = msgError)
+            return render_template("alta.html", errores = msgError)
 
-        consulta('INSERT INTO movimientos (cantidad, concepto, fecha) VALUES (?, ? ,? );', 
+        consulta('INSERT INTO movimientos (fecha,concepto,cantidad) VALUES (?, ? ,? );', 
                  (
-                    float(request.form.get('cantidad')),
-                    request.form.get('concepto'),
-                    request.form.get('fecha')
+                   fecha,concepto,cantidad
                  )
         )
 
@@ -79,7 +79,7 @@ def nuevoIngreso():
         
 
 
-    return render_template("alta.html")
+    return render_template("alta.html", form=formulario)
 
 
 @app.route("/modifica/<id>", methods=['GET', 'POST'])
@@ -104,40 +104,28 @@ def modificaIngreso(id):
         return redirect(url_for("listaIngresos"))
     
 
-@app.route('/mi_alta', methods=['GET', 'POST'])
-def nuevoIngreso():
-    if request.method == 'POST':
-        # iNSERT INTO movimientos (cantidad, concepto, fecha) VALUES (1500, "Paga extra", "2020-12-16" )
-
-        cantidad = request.form.get('cantidad')
-        try:
-            cantidad = float(cantidad)
-        except ValueError:
-            msgError = 'Cantidad debe ser numérico'
-            return render_template("mi_alta", errores = msgError)
-
-        consulta('INSERT INTO movimientos (cantidad, concepto, fecha) VALUES (?, ? ,? );', 
-                 (
-                    float(request.form.get('cantidad')),
-                    request.form.get('concepto'),
-                    request.form.get('fecha')
-                 )
-        )
-
-        return redirect(url_for('listaIngresos'))
-
-    return render_template("mi_alta.html")
-
-
 
 
 
 '''
-def diccionarios():
-    if len(listaDeDiccionarios) ==1:
+def diccionario(column, filas):    
+    
+    for columnName in column:
+        column.append(columnName[0])
+
+    listaDeDiccionarios = []    
+    for fila in filas:
+        d = {}
+        for ix, column in enumerate(column):
+            d[column] = fila[ix]
+        listaDeDiccionarios.append(d)
+
+
+    if len(listaDeDiccionarios) == 1:
         return listaDeDiccionarios[0]
-    elif len(listaDeDiccionarios) ==0:
+    elif len(listaDeDiccionarios) == 0:
         return None
     else:
         return listaDeDiccionarios
+
 '''

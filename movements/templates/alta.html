@@ -1,26 +1,32 @@
 {% extends 'base.html' %} 
-{% block title %} <kakebo> {% endblock %} 
+{% block title %}kakebo {% endblock %} 
 {% block content %}
 
-<a href="{{ url_for("listaIngresos") }}">Volver a Ingresos</a>
-
-<form action="creaalta" method="get">
-    <div class="flied">
-        <label for="fecha>">Fecha:</label>
-        <input type="date" name="fecha" required>
-        
+<form action="{{ url_for('nuevoIngreso') }}" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.fecha.label }}
+        {{ form.fecha(size=64 )}}<br>
+        {% for errors in form.fecha.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
     </div>
-    <div class="flied">
-        <label for="concepto">Concepto:</label>
-        <input type="text" name="concepto">
+    <div>
+        {{ form.concepto.label }}
+        {{ form.concepto }}<br>
+        {% for error in form.concepto.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
     </div>
-    <div class="flied">
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" name="cantidad" step="0.01">
+    <div>
+        {{ form.cantidad.label }}
+        {{ form.cantidad }}<br>
+        {% for error in form.cantidad.errors %}
+        <span style="color:red;">{{ error }}</span>
+        {% endfor %}
     </div>
-    <input type="submit" value="aceptar">
+    <div>
+        {{ form.enviar() }}
+    </div>
 </form>
-
-
-
 {% endblock %}
