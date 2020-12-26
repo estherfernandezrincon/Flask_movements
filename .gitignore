@@ -2,3 +2,6 @@ venv/
 .env
 __pycache__/
 movements/__pycache__/
+movements/data/base_de_datos*
+config.py
+.vscode/

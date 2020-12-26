@@ -1,1 +1,2 @@
-SECRET_KEY=b'Unasemilla'
+SECRET_KEY='suplerclave'
+DBFILE='movimientos/data/basededatos.db'
